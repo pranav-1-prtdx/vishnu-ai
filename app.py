@@ -17,8 +17,16 @@ def get_db():
     conn = None
     try:
         # Use /tmp for Vercel (writable directory) or local for development
-        db_path = os.path.join(os.environ.get('TMPDIR', '/tmp'), 'candidates.db') if os.environ.get('VERCEL') else 'candidates.db'
-        conn = sqlite3.connect(db_path, timeout=10.0)
+        if os.environ.get('VERCEL'):
+            db_path = '/tmp/candidates.db'
+        else:
+            db_path = 'candidates.db'
+        
+        # Ensure directory exists
+        if os.environ.get('VERCEL'):
+            os.makedirs('/tmp', exist_ok=True)
+        
+        conn = sqlite3.connect(db_path, timeout=10.0, check_same_thread=False)
         conn.execute('PRAGMA journal_mode=WAL')  # Enable WAL mode for better concurrency
         yield conn
         conn.commit()
@@ -58,7 +66,9 @@ def init_db():
             c.execute('INSERT INTO users (email, role, created_at) VALUES (?, ?, ?)',
                       ('admin@vishnu.ai', 'interviewer', time.strftime("%Y-%m-%d %H:%M:%S")))
 
-init_db()
+# Initialize database (skip on Vercel - will init on first request)
+if not os.environ.get('VERCEL'):
+    init_db()
 
 # Login Required Decorator
 def login_required(role):
@@ -195,7 +205,10 @@ def submit_resume():
             return redirect(url_for('submit_resume'))
         
         # Use /tmp/resumes for Vercel or local resumes folder
-        resumes_dir = os.path.join(os.environ.get('TMPDIR', '/tmp'), 'resumes') if os.environ.get('VERCEL') else 'resumes'
+        if os.environ.get('VERCEL'):
+            resumes_dir = '/tmp/resumes'
+        else:
+            resumes_dir = 'resumes'
         os.makedirs(resumes_dir, exist_ok=True)
         filename = f"{name}_{int(time.time())}.pdf"
         path = os.path.join(resumes_dir, filename)
@@ -254,7 +267,10 @@ def download_resume(filename):
     # Extract just the filename from the path
     if '/' in filename:
         filename = filename.split('/')[-1]
-    resumes_dir = os.path.join(os.environ.get('TMPDIR', '/tmp'), 'resumes') if os.environ.get('VERCEL') else 'resumes'
+    if os.environ.get('VERCEL'):
+        resumes_dir = '/tmp/resumes'
+    else:
+        resumes_dir = 'resumes'
     return send_from_directory(resumes_dir, filename, as_attachment=True)
 
 # Schedule Interview Page

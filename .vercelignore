@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Database (local only)
+*.db
+*.sqlite
+*.sqlite3
+candidates.db
+
+# Environment files
+.env
+env.env
+*.env
+
+# Resumes (local only)
+resumes/*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Zoom bot (not needed on Vercel)
+zoom_bot/recording/
+
+# Git
+.git/
+.gitignore
+
+# Documentation (optional)
+DEPLOY*.md
+DEPLOY*.txt
+QUICK_START.txt
+START
+

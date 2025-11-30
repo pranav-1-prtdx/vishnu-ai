@@ -1,0 +1,26 @@
+==========================================
+VERCEL ENVIRONMENT VARIABLES TO SET
+==========================================
+
+Go to: Vercel Dashboard → Your Project → Settings → Environment Variables
+
+Add these variables:
+
+1. SECRET_KEY
+   Value: VishnuAI_Secret_Key_2025_MunjalKiriu_Production
+   (Or generate a random secure string)
+
+2. PYTHON_VERSION (Optional - already in vercel.json)
+   Value: 3.11
+
+==========================================
+IMPORTANT NOTES:
+==========================================
+
+- Database uses /tmp on Vercel (ephemeral storage)
+- Resumes stored in /tmp/resumes
+- All paths are Vercel-compatible
+- Static files served automatically
+
+==========================================
+

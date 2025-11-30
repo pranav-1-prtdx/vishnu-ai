@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" width="100" height="150">
+  <!-- Neon Trail -->
+  <defs>
+    <linearGradient id="trailGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#007bff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#28a745" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 150 C45 130, 55 130, 50 110 L50 150 Z" fill="url(#trailGradient)" opacity="0.8">
+    <animate attributeName="d" dur="1.5s" repeatCount="indefinite"
+      values="M50 150 C45 130, 55 130, 50 110 L50 150 Z;
+              M50 150 C47 135, 53 135, 50 115 L50 150 Z;
+              M50 150 C45 130, 55 130, 50 110 L50 150 Z" />
+  </path>
+
+  <!-- Rocket Body -->
+  <g transform="translate(0,10)">
+    <!-- Main Body -->
+    <path d="M50 0 C65 30, 65 80, 50 110 C35 80, 35 30, 50 0 Z" fill="#f5f5f5" stroke="#007bff" stroke-width="2"/>
+    
+    <!-- Window -->
+    <circle cx="50" cy="45" r="10" fill="#007bff" stroke="#28a745" stroke-width="2"/>
+
+    <!-- Fins -->
+    <path d="M35 70 C25 85, 25 95, 40 90 Z" fill="#28a745"/>
+    <path d="M65 70 C75 85, 75 95, 60 90 Z" fill="#28a745"/>
+
+    <!-- Flame Base -->
+    <path d="M50 110 C47 120, 53 120, 50 130" fill="none" stroke="url(#trailGradient)" stroke-width="4" stroke-linecap="round">
+      <animate attributeName="d" dur="1s" repeatCount="indefinite"
+        values="M50 110 C47 120, 53 120, 50 130;
+                M50 110 C45 125, 55 125, 50 135;
+                M50 110 C47 120, 53 120, 50 130" />
+    </path>
+  </g>
+</svg>

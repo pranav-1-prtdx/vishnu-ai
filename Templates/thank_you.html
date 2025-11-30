@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}Thank You - Vishnu AI{% endblock %}
+{% block content %}
+<div class="thank-you-container">
+    <div class="thank-you-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1>Thank You!</h1>
+        <p class="thank-you-message">Your resume has been submitted successfully.</p>
+        <p class="thank-you-submessage">Our AI is reviewing your application. We'll contact you soon!</p>
+        <div class="thank-you-actions">
+            <a href="{{ url_for('candidate_dashboard') }}" class="btn btn-primary">
+                <i class="fas fa-dashboard"></i> Go to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+// Confetti animation
+const duration = 3000;
+const end = Date.now() + duration;
+
+(function frame() {
+    confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+    });
+    confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+    });
+
+    if (Date.now() < end) {
+        requestAnimationFrame(frame);
+    }
+}());
+
+// Additional burst after 1 second
+setTimeout(() => {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}, 1000);
+</script>
+{% endblock %}

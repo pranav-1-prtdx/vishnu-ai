@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}Review Extracted Text{% endblock %}
+
+{% block content %}
+<h1>Review & Confirm <small>AI Extraction Quality</small></h1>
+<p>The AI has extracted the following text from your PDF. Please review it for accuracy and make any necessary corrections before confirming.</p>
+<form method="post">
+    <label for="resume_text">Extracted Resume Text:</label>
+    <textarea id="resume_text" name="resume_text" rows="15" required>{{ resume_data.text }}</textarea>
+    
+    <button type="submit" class="button">CONFIRM & START SCREENING</button>
+</form>
+<a href="{{ url_for('thank_you') }}" class="button">Skip for Now (Not Recommended)</a>
+{% endblock %}

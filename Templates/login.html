@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+{% block title %}Login - Vishnu AI{% endblock %}
+{% block content %}
+<div class="login-container">
+    <h1>Login to Vishnu AI</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="login-tabs">
+        <button class="tab active" onclick="showTab('candidate')">Candidate</button>
+        <button class="tab" onclick="showTab('interviewer')">Interviewer</button>
+    </div>
+
+    <div id="candidate-tab" class="tab-content">
+        <form id="email-form" action="{{ url_for('request_otp') }}" method="POST">
+            <label for="candidate-email">Email Address</label>
+            <input type="email" id="candidate-email" name="email" value="{{ session.get('otp_email', '') }}" placeholder="you@example.com" required>
+            <button type="submit" class="btn btn-primary">Send OTP</button>
+            <p class="help-text">We'll send a 6-digit code (valid for 10 minutes).</p>
+        </form>
+
+        <form id="otp-form" action="{{ url_for('verify_otp') }}" method="POST">
+            <p class="help-text">OTP sent to: <strong>{{ session.get('otp_email') }}</strong></p>
+            <label for="otp">Enter 6-digit OTP</label>
+            <input type="text" id="otp" name="otp" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="123456" required>
+            <input type="hidden" name="email" value="{{ session.get('otp_email') }}">
+            <button type="submit" class="btn btn-primary">Verify OTP</button>
+            <button type="button" onclick="clearOtpState()" class="btn" style="margin-top:10px; background:#666;">
+                Change Email
+            </button>
+        </form>
+        <input type="hidden" id="otp-requested-flag" value="{{ 'true' if session.get('otp_requested') else 'false' }}">
+    </div>
+
+    <div id="interviewer-tab" class="tab-content" style="display: none;">
+        <form action="{{ url_for('auth_login') }}" method="POST">
+            <label for="interviewer-email">Email</label>
+            <input type="email" id="interviewer-email" name="email" placeholder="admin@vishnu.ai" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" class="btn btn-accent">Login</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function showTab(tab) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+    // Remove active class from all tabs
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    // Show selected tab content
+    const selectedTab = document.getElementById(tab + '-tab');
+    if (selectedTab) {
+        selectedTab.style.display = 'block';
+        
+        // Restore form visibility for candidate tab if needed
+        if (tab === 'candidate') {
+            const otpRequested = document.getElementById('otp-requested-flag')?.value === 'true';
+            const emailForm = document.getElementById('email-form');
+            const otpForm = document.getElementById('otp-form');
+            
+            if (emailForm && otpForm) {
+                if (otpRequested) {
+                    emailForm.style.display = 'none';
+                    otpForm.style.display = 'block';
+                } else {
+                    emailForm.style.display = 'block';
+                    otpForm.style.display = 'none';
+                }
+            }
+        }
+    }
+    // Add active class to clicked tab button
+    const tabButtons = document.querySelectorAll('.tab');
+    tabButtons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes("'" + tab + "'")) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function clearOtpState() {
+    // Redirect to login with a parameter to clear OTP state
+    window.location.href = '{{ url_for("login") }}?clear_otp=1';
+}
+
+// Initialize form visibility and validate OTP input
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle form visibility based on OTP request state
+    const otpRequested = document.getElementById('otp-requested-flag')?.value === 'true';
+    const emailForm = document.getElementById('email-form');
+    const otpForm = document.getElementById('otp-form');
+    
+    if (emailForm && otpForm) {
+        if (otpRequested) {
+            emailForm.style.display = 'none';
+            otpForm.style.display = 'block';
+        } else {
+            emailForm.style.display = 'block';
+            otpForm.style.display = 'none';
+        }
+    }
+    
+    // Validate OTP input to only allow digits
+    const otpInput = document.getElementById('otp');
+    if (otpInput) {
+        otpInput.addEventListener('input', function(e) {
+            // Remove any non-digit characters
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        
+        otpInput.addEventListener('keypress', function(e) {
+            // Only allow numeric keys
+            if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'Tab' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+                e.preventDefault();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block title %}Admin Dashboard - Vishnu AI{% endblock %}
+{% block content %}
+<div class="dashboard-container admin-dashboard">
+    <div class="dashboard-header">
+        <h1><i class="fas fa-tachometer-alt"></i> Admin Panel</h1>
+        <p>Welcome, <strong>{{ session.user.email }}</strong></p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search" placeholder="Search by name, email, or post..." onkeyup="filterTable()">
+    </div>
+
+    <div class="table-container">
+        <table id="candidates-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Post</th>
+                    <th>Status</th>
+                    <th>Resume</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if candidates %}
+                    {% for candidate in candidates %}
+                    <tr>
+                        <td>{{ candidate[1] }}</td>
+                        <td>{{ candidate[2] }}</td>
+                        <td>{{ candidate[3] }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('update_status', candidate_id=candidate[0]) }}" class="status-form">
+                                <select name="status" class="status-select" onchange="this.form.submit()">
+                                    <option value="Pending" {% if candidate[4] == 'Pending' %}selected{% endif %}>Pending</option>
+                                    <option value="Selected" {% if candidate[4] == 'Selected' %}selected{% endif %}>Selected</option>
+                                    <option value="Rejected" {% if candidate[4] == 'Rejected' %}selected{% endif %}>Rejected</option>
+                                    <option value="Interview Scheduled" {% if candidate[4] == 'Interview Scheduled' %}selected{% endif %}>Interview Scheduled</option>
+                                </select>
+                            </form>
+                        </td>
+                        <td>
+                            {% if candidate[5] %}
+                                <a href="/download/{{ candidate[5].split('/')[-1] }}" class="btn-small btn-download" download>
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            {% else %}
+                                <span class="no-resume">No resume</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('schedule_interview', candidate_id=candidate[0]) }}" class="btn-small btn-primary">
+                                <i class="fas fa-video"></i> Schedule AI Interview
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="no-data">No candidates found</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+function filterTable() {
+    let input = document.getElementById("search");
+    let filter = input.value.toLowerCase();
+    let rows = document.querySelectorAll("#candidates-table tbody tr");
+    rows.forEach(row => {
+        let text = row.textContent.toLowerCase();
+        row.style.display = text.includes(filter) ? "" : "none";
+    });
+}
+</script>
+{% endblock %}

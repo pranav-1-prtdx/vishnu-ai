@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vishnu AI{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <img src="/static/assets/logo.svg" alt="Vishnu AI Logo" class="logo">
+        <div class="header-controls">
+            {% if session.user %}
+                <a href="{{ url_for('logout') }}" class="btn btn-accent">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- CHATBOT WITH SIDEBAR -->
+    <div class="chatbot">
+        <div class="chatbot-orb" id="chatbot-orb">?</div>
+        <div class="chatbot-sidebar" id="chatbot-sidebar">
+            <div class="sidebar-header">
+                <h3>Welcome to VISHNU AI</h3>
+                <button class="close-btn" id="close-sidebar">×</button>
+            </div>
+            <div class="sidebar-body">
+                <p><strong>Vishnu AI</strong> is your intelligent hiring partner for <strong>Munjal Kiriu Manesar</strong>.</p>
+                <p>We use AI to:</p>
+                <ul>
+                    <li>Screen resumes in seconds</li>
+                    <li>Match candidates to job roles</li>
+                    <li>Streamline interviews</li>
+                </ul>
+                <p><strong>Fast. Smart. Accurate.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D ANIMATED SHAPES BACKGROUND (15+) -->
+    <div class="page-background">
+        <div class="animated-shapes">
+            <div class="shape circle"></div>
+            <div class="shape square"></div>
+            <div class="shape triangle"></div>
+            <div class="shape hexagon"></div>
+            <div class="shape circle"></div>
+            <div class="shape square"></div>
+            <div class="shape triangle"></div>
+            <div class="shape circle"></div>
+            <div class="shape hexagon"></div>
+            <div class="shape square"></div>
+            <div class="shape circle"></div>
+            <div class="shape triangle"></div>
+            <div class="shape hexagon"></div>
+            <div class="shape circle"></div>
+            <div class="shape square"></div>
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

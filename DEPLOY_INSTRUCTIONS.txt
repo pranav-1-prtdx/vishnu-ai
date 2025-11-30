@@ -1,0 +1,77 @@
+==========================================
+VISHNU AI 1.0 - VERCEL DEPLOYMENT GUIDE
+==========================================
+
+STEP 1: GITHUB PUSH
+-------------------
+1. Open PowerShell in project folder
+2. Run these commands:
+
+   git init
+   git add .
+   git commit -m "Vishnu AI 1.0 - Production Ready"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/vishnu-ai.git
+   git push -u origin main
+
+   (Replace YOUR_USERNAME with your GitHub username)
+
+
+STEP 2: VERCEL DEPLOYMENT
+--------------------------
+1. Go to: https://vercel.com
+2. Sign in with GitHub account
+3. Click "Add New Project"
+4. Select your repository: "vishnu-ai"
+5. Vercel will auto-detect Flask
+6. Click "Deploy" (no build settings needed!)
+
+
+STEP 3: ENVIRONMENT VARIABLES
+------------------------------
+1. In Vercel Dashboard → Your Project → Settings
+2. Go to "Environment Variables"
+3. Add:
+   Key: SECRET_KEY
+   Value: VishnuAI_Secret_Key_2025_MunjalKiriu_Production
+4. Click "Save"
+
+
+STEP 4: GET YOUR LIVE URL
+--------------------------
+After deployment (2-3 minutes):
+- Your live URL will be: https://your-project-name.vercel.app
+- All pages will work automatically
+- Mobile responsive ✅
+- Dark mode ✅
+- All features working ✅
+
+
+IMPORTANT NOTES:
+----------------
+- Database uses /tmp on Vercel (ephemeral - resets on deploy)
+- For production, consider using a cloud database
+- Static files (CSS/JS/images) are served automatically
+- All routes work out of the box
+
+
+TROUBLESHOOTING:
+----------------
+If you see 404:
+- Check vercel.json exists in root
+- Check app.py is in root
+- Check build logs in Vercel dashboard
+
+If database errors:
+- This is normal - SQLite on Vercel is temporary
+- Use cloud DB for persistent storage
+
+
+SUCCESS! 🎉
+-----------
+Your Vishnu AI platform is now LIVE!
+
+Jai Vishnu AI! 🚀
+
+==========================================
+

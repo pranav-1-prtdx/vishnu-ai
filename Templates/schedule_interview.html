@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %}Schedule AI Interview - Vishnu AI{% endblock %}
+{% block content %}
+<div class="dashboard-container">
+    <div class="form-card schedule-card">
+        <h1><i class="fas fa-video"></i> Schedule AI Interview</h1>
+        <p class="subtitle">Vishnu AI will automatically join and conduct the interview</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="ai-icon-wrapper">
+            <div class="ai-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <p class="candidate-id">Candidate ID: {{ candidate_id }}</p>
+        </div>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="zoom_link"><i class="fas fa-link"></i> Zoom Meeting Link</label>
+                <input 
+                    type="url" 
+                    name="zoom_link" 
+                    id="zoom_link"
+                    placeholder="https://zoom.us/j/1234567890" 
+                    required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-large">
+                <i class="fas fa-calendar-check"></i> Schedule Interview Now
+            </button>
+        </form>
+
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> After scheduling:</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> Candidate will get email + dashboard update</li>
+                <li><i class="fas fa-check"></i> Vishnu AI Bot will join automatically</li>
+                <li><i class="fas fa-check"></i> Full interview recorded + scored</li>
+                <li><i class="fas fa-check"></i> Report sent to you in 5 minutes</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

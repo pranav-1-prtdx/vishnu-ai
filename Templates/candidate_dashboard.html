@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %}Candidate Dashboard - Vishnu AI{% endblock %}
+{% block content %}
+<div class="dashboard-container candidate-dashboard">
+    <div class="dashboard-card">
+        <h1><i class="fas fa-user-circle"></i> Welcome, {{ session.user.email }}</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if candidate %}
+            <div class="status-card">
+                <h2><i class="fas fa-file-alt"></i> Your Application Status</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Name:</span>
+                        <span class="value">{{ candidate[1] }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Post Applied:</span>
+                        <span class="value">{{ candidate[3] }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Status:</span>
+                        <span class="status-badge status-{{ candidate[5].lower().replace(' ', '-') }}">{{ candidate[5] }}</span>
+                    </div>
+                </div>
+                
+                {% if candidate[6] %}
+                    <div class="interview-section">
+                        <h3><i class="fas fa-video"></i> Interview Scheduled</h3>
+                        <p class="zoom-link"><a href="{{ candidate[6] }}" target="_blank" class="btn btn-primary">
+                            <i class="fas fa-external-link-alt"></i> Join Interview
+                        </a></p>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <i class="fas fa-file-upload"></i>
+                <h2>No Application Submitted Yet</h2>
+                <p>Submit your resume to get started with Vishnu AI</p>
+                <a href="{{ url_for('submit_resume') }}" class="btn btn-primary">
+                    <i class="fas fa-upload"></i> Submit Resume
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -66,8 +66,9 @@ def init_db():
             c.execute('INSERT INTO users (email, role, created_at) VALUES (?, ?, ?)',
                       ('admin@vishnu.ai', 'interviewer', time.strftime("%Y-%m-%d %H:%M:%S")))
 
-# Initialize database (skip on Vercel - will init on first request)
-if not os.environ.get('VERCEL'):
+# Initialize database (will be called by api/index.py on Vercel)
+# Skip here to avoid import-time initialization issues
+if __name__ == '__main__':
     init_db()
 
 # Login Required Decorator

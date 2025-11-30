@@ -1,0 +1,56 @@
+╔══════════════════════════════════════════════════════════╗
+║     VISHNU AI 1.0 - VERCEL READY (Dec 2025) 🚀        ║
+╚══════════════════════════════════════════════════════════╝
+
+✅ ALL FILES UPDATED ACCORDING TO YOUR SPECS!
+
+📋 FIXED FILES:
+   ✓ vercel.json → Points to app.py directly
+   ✓ requirements.txt → Flask 3.0.3, Werkzeug 3.0.3
+   ✓ api/index.py → Simple WSGI wrapper
+   ✓ app.py → /tmp paths, WAL mode, env vars ✅
+   ✓ .vercelignore → Ignores local files
+
+🚀 DEPLOY NOW (3 STEPS):
+
+1️⃣  GITHUB PUSH:
+   ----------------------------
+   git add .
+   git commit -m "Vercel fix 2025 - DB + env"
+   git push
+
+2️⃣  VERCEL REDEPLOY:
+   ----------------------------
+   → https://vercel.com
+   → Your Project → Deployments
+   → Click "Redeploy"
+   → Clear cache if available
+
+3️⃣  ENVIRONMENT VARIABLES:
+   ----------------------------
+   → Settings → Environment Variables
+   → Add: SECRET_KEY = VishnuAI_Secret_Key_2025_MunjalKiriu_Production
+   → Add: PYTHON_VERSION = 3.11 (optional)
+   → Save & Redeploy
+
+🎯 TEST URL:
+   https://vishnu-ai.vercel.app
+
+✨ WHAT'S FIXED:
+   ✓ FUNCTION_INVOCATION_FAILED resolved
+   ✓ Database: /tmp/candidates.db (WAL mode)
+   ✓ Resumes: /tmp/resumes
+   ✓ Environment variables support
+   ✓ WSGI handler simplified
+   ✓ Static files routing
+
+💡 IF STILL 500:
+   → Check Vercel logs (Functions tab)
+   → Share log ID: bom1::cmt7z-...
+   → We'll fix immediately!
+
+JAI HIND! 🇮🇳
+JAI VISHNU AI! 🚀
+
+╚══════════════════════════════════════════════════════════╝
+

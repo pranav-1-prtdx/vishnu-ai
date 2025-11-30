@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Vishnu AI 1.0 - AI Hiring Platform
 
 AI-powered hiring platform for Munjal Kiriu Manesar.
@@ -86,3 +87,6 @@ Set these in Vercel Dashboard → Settings → Environment Variables:
 
 ## Jai Vishnu AI! 🚀
 
+=======
+# vishnu-ai
+>>>>>>> c93481a061f60bc405bf29458edce7187d47ce45
